@@ -1,4 +1,4 @@
-# ☁️ OCI-DataFlow-Showcase: Serverless Big Data
+#  OCI-DataFlow-Showcase: Serverless Big Data
 
 Welcome to the **OCI-DataFlow-Showcase**! 
 
@@ -6,7 +6,7 @@ I put together this repository to demonstrate how to easily run massive Apache S
 
 Using **Oracle Cloud Infrastructure (OCI) Data Flow**, you can simply write your data processing logic, submit it, and let the cloud handle the scaling. 
 
-## 🗺️ The Architecture
+##  The Architecture
 
 To make it easy to visualize, here is a diagram of the typical big data pipeline demonstrated in these examples:
 
@@ -18,15 +18,15 @@ flowchart TD
     classDef destination fill:#FFB74D,stroke:#F57C00,stroke-width:2px,color:#fff,rx:10,ry:10
 
     subgraph Data Sources
-        Storage[("🪣 OCI Object Storage\n(Raw CSV/JSON)")]:::source
-        Kafka[("📡 Apache Kafka\n(Live Streams)")]:::source
+        Storage[(" OCI Object Storage\n(Raw CSV/JSON)")]:::source
+        Kafka[(" Apache Kafka\n(Live Streams)")]:::source
     end
 
-    Engine{"⚡ Serverless Data Flow\n(Apache Spark Engine)"}:::processing
+    Engine{" Serverless Data Flow\n(Apache Spark Engine)"}:::processing
 
     subgraph Destinations
-        ADW[("🏢 Autonomous Database\n(Clean Data)")]:::destination
-        Lake[("🏞️ Data Lake\n(Parquet Files)")]:::destination
+        ADW[(" Autonomous Database\n(Clean Data)")]:::destination
+        Lake[(" Data Lake\n(Parquet Files)")]:::destination
     end
 
     Storage -->|Batch Load| Engine
@@ -36,7 +36,7 @@ flowchart TD
     Engine -->|Write Optimized| Lake
 ```
 
-## 🚀 What's Inside?
+##  What's Inside?
 
 This repo contains ready-to-run examples in Python, Java, and Scala for common big data tasks:
 - **Format Conversion**: Convert massive, messy CSV files into lightning-fast Parquet formats.
@@ -44,5 +44,5 @@ This repo contains ready-to-run examples in Python, Java, and Scala for common b
 - **Real-time Streaming**: Connect to Kafka streams to process events live as they happen.
 - **Machine Learning**: Train Random Forest regression models at scale.
 
-## 🛠️ Why I Love This Approach
+##  Why I Love This Approach
 The beauty of Data Flow is that everything is completely driven by REST APIs. You can easily integrate these jobs into your existing web apps or automated workflows, making Big Data processing feel just like calling a standard web endpoint!
