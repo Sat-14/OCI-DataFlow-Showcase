@@ -1,48 +1,49 @@
-#  OCI-DataFlow-Showcase: Serverless Big Data
+# OCI-DataFlow-Showcase: Serverless Big Data Workloads
 
-Welcome to the **OCI-DataFlow-Showcase**! 
+Welcome to the OCI-DataFlow-Showcase repository. 
 
-I put together this repository to demonstrate how to easily run massive Apache Spark jobs in the cloud without ever having to touch a server, configure a cluster, or manage complicated infrastructure. 
+This project demonstrates how to orchestrate and execute Apache Spark applications at massive scale using Oracle Cloud Infrastructure (OCI) Data Flow. OCI Data Flow provides a fully managed, serverless Spark environment, eliminating the operational overhead of provisioning, configuring, and tuning Hadoop or Kubernetes clusters.
 
-Using **Oracle Cloud Infrastructure (OCI) Data Flow**, you can simply write your data processing logic, submit it, and let the cloud handle the scaling. 
+## Architecture and Data Pipelines
 
-##  The Architecture
-
-To make it easy to visualize, here is a diagram of the typical big data pipeline demonstrated in these examples:
+The repository provides concrete implementations of typical Big Data architectures, showcasing batch ETL, real-time stream processing, and machine learning model training.
 
 ```mermaid
 flowchart TD
-    %% Friendly styling
-    classDef source fill:#81C784,stroke:#388E3C,stroke-width:2px,color:#fff,rx:10,ry:10
-    classDef processing fill:#64B5F6,stroke:#1976D2,stroke-width:2px,color:#fff,rx:10,ry:10
-    classDef destination fill:#FFB74D,stroke:#F57C00,stroke-width:2px,color:#fff,rx:10,ry:10
+    classDef source stroke:#333,stroke-width:2px;
+    classDef compute stroke:#333,stroke-width:2px;
+    classDef sink stroke:#333,stroke-width:2px;
 
-    subgraph Data Sources
-        Storage[(" OCI Object Storage\n(Raw CSV/JSON)")]:::source
-        Kafka[(" Apache Kafka\n(Live Streams)")]:::source
+    subgraph Ingestion Layer
+        ObjStore[("OCI Object Storage\n(Raw CSV/JSON Files)")]:::source
+        Kafka[("Apache Kafka\n(High-Throughput Streams)")]:::source
     end
 
-    Engine{" Serverless Data Flow\n(Apache Spark Engine)"}:::processing
+    DataFlow{"Serverless PySpark\n(OCI Data Flow Engine)"}:::compute
 
-    subgraph Destinations
-        ADW[(" Autonomous Database\n(Clean Data)")]:::destination
-        Lake[(" Data Lake\n(Parquet Files)")]:::destination
+    subgraph Persistence & Serving
+        ADW[("Autonomous Data Warehouse\n(Structured Fact Tables)")]:::sink
+        Lake[("Optimized Data Lake\n(Parquet/Delta Tables)")]:::sink
     end
 
-    Storage -->|Batch Load| Engine
-    Kafka -->|Stream| Engine
+    MLFlow["MLflow Tracking Server\n(Experiment Metadata)"]:::compute
+
+    ObjStore -->|Batch DataFrames| DataFlow
+    Kafka -->|Structured Streaming| DataFlow
     
-    Engine -->|SQL Insert| ADW
-    Engine -->|Write Optimized| Lake
+    DataFlow -->|JDBC Batch Writes| ADW
+    DataFlow -->|Partitioned Writes| Lake
+    DataFlow -.->|Logs Metrics & Models| MLFlow
 ```
 
-##  What's Inside?
+## Technical Demonstrations Included
 
-This repo contains ready-to-run examples in Python, Java, and Scala for common big data tasks:
-- **Format Conversion**: Convert massive, messy CSV files into lightning-fast Parquet formats.
-- **Data Warehousing**: Read raw data, transform it, and load it securely into an Autonomous Database.
-- **Real-time Streaming**: Connect to Kafka streams to process events live as they happen.
-- **Machine Learning**: Train Random Forest regression models at scale.
+This repository contains robust examples written across Python, Java, and Scala to interface with the Data Flow REST APIs and execute specific workloads:
 
-##  Why I Love This Approach
-The beauty of Data Flow is that everything is completely driven by REST APIs. You can easily integrate these jobs into your existing web apps or automated workflows, making Big Data processing feel just like calling a standard web endpoint!
+1. **Format Conversion (ETL)**: Scripts utilizing PySpark DataFrames to ingest large-scale unstructured CSV data from Object Storage, infer schemas, and write highly compressed, columnar Apache Parquet files back to the object store.
+2. **Data Warehousing Integration**: Demonstrates configuring the Spark engine to authenticate and establish high-speed JDBC connections with an Autonomous Data Warehouse (ADW) to execute massive bulk-inserts.
+3. **Structured Streaming**: Shows how to maintain a persistent connection to an Apache Kafka topic to consume continuous data streams. It features windowed aggregations (e.g., calculating moving averages over a one-minute sliding window).
+4. **Distributed Machine Learning**: Features a Random Forest Regression implementation using `pyspark.ml`. It distributes the model training across the serverless nodes and logs hyperparameters and artifacts to a connected MLflow Tracking Server.
+
+## Execution Model
+OCI Data Flow applications are entirely driven by REST APIs. You package your application code (and any dependencies), upload it to Object Storage, and trigger a run via the OCI CLI, SDKs, or the web console. The infrastructure automatically provisions the requested executor nodes, runs the Spark context, and tears down the environment upon completion, ensuring you only pay for the exact compute time consumed.
