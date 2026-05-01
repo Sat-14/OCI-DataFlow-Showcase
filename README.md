@@ -1,93 +1,48 @@
-# OCI-DataFlow-Showcase
+# ☁️ OCI-DataFlow-Showcase: Serverless Big Data
 
-This repository provides examples demonstrating how to use Oracle Cloud Infrastructure Data Flow, a service that lets you run any Apache Spark Application at any scale with no infrastructure to deploy or manage.
+Welcome to the **OCI-DataFlow-Showcase**! 
 
-## Architecture & Flow
+I put together this repository to demonstrate how to easily run massive Apache Spark jobs in the cloud without ever having to touch a server, configure a cluster, or manage complicated infrastructure. 
+
+Using **Oracle Cloud Infrastructure (OCI) Data Flow**, you can simply write your data processing logic, submit it, and let the cloud handle the scaling. 
+
+## 🗺️ The Architecture
+
+To make it easy to visualize, here is a diagram of the typical big data pipeline demonstrated in these examples:
 
 ```mermaid
-graph TD
-    A[(OCI Object Storage)] -->|Raw Data| B(OCI Data Flow Serverless Spark)
-    C[(Apache Kafka)] -->|Streaming Data| B
-    B -->|Transformed Data| D[(Autonomous Data Warehouse)]
-    B -->|Parquet Files| A
-    B -.->|Model Tracking| E[MLflow Server]
+flowchart TD
+    %% Friendly styling
+    classDef source fill:#81C784,stroke:#388E3C,stroke-width:2px,color:#fff,rx:10,ry:10
+    classDef processing fill:#64B5F6,stroke:#1976D2,stroke-width:2px,color:#fff,rx:10,ry:10
+    classDef destination fill:#FFB74D,stroke:#F57C00,stroke-width:2px,color:#fff,rx:10,ry:10
+
+    subgraph Data Sources
+        Storage[("🪣 OCI Object Storage\n(Raw CSV/JSON)")]:::source
+        Kafka[("📡 Apache Kafka\n(Live Streams)")]:::source
+    end
+
+    Engine{"⚡ Serverless Data Flow\n(Apache Spark Engine)"}:::processing
+
+    subgraph Destinations
+        ADW[("🏢 Autonomous Database\n(Clean Data)")]:::destination
+        Lake[("🏞️ Data Lake\n(Parquet Files)")]:::destination
+    end
+
+    Storage -->|Batch Load| Engine
+    Kafka -->|Stream| Engine
     
-    style A fill:#4CAF50,stroke:#388E3C,stroke-width:2px,color:#fff
-    style B fill:#F44336,stroke:#D32F2F,stroke-width:2px,color:#fff
-    style C fill:#2196F3,stroke:#1976D2,stroke-width:2px,color:#fff
-    style D fill:#FF9800,stroke:#F57C00,stroke-width:2px,color:#fff
-    style E fill:#9C27B0,stroke:#7B1FA2,stroke-width:2px,color:#fff
+    Engine -->|SQL Insert| ADW
+    Engine -->|Write Optimized| Lake
 ```
 
-## What is Oracle Cloud Infrastructure Data Flow
+## 🚀 What's Inside?
 
-Oracle Cloud Infrastructure (OCI) Data Flow is a cloud-based serverless platform with a rich user interface. It allows Spark developers and data scientists to create, edit, and run Spark jobs at any scale without the need for clusters, an operations team, or highly specialized Spark knowledge. Being serverless means there is no infrastructure for you to deploy or manage. It is entirely driven by REST APIs, giving you easy integration with applications or workflows. You can:
+This repo contains ready-to-run examples in Python, Java, and Scala for common big data tasks:
+- **Format Conversion**: Convert massive, messy CSV files into lightning-fast Parquet formats.
+- **Data Warehousing**: Read raw data, transform it, and load it securely into an Autonomous Database.
+- **Real-time Streaming**: Connect to Kafka streams to process events live as they happen.
+- **Machine Learning**: Train Random Forest regression models at scale.
 
-* Connect to Apache Spark data sources.
-
-* Create reusable Apache Spark applications.
-
-* Launch Apache Spark jobs in seconds.
-
-* Manage all Apache Spark applications from a single platform.
-
-* Process data in the Cloud or on-premises in your data center.
-
-* Create Big Data building blocks that you can easily assemble into advanced Big Data applications.
-
-## Before you Begin
-
-You must have Set Up Your Tenancy and be able to Access Data Flow
-
-* Setup Tenancy : Before Data Flow can run, you must grant permissions that allow effective log capture and run management.See the [Set Up Administration](https://docs.oracle.com/iaas/data-flow/using/dfs_getting_started.htm#set_up_admin) section of Data Flow Service Guide, and follow the instructions given there.  
-* Access Data Flow : Refer to this section on how to [Access Data Flow](https://docs.oracle.com/en-us/iaas/data-flow/data-flow-tutorial/getting-started/dfs_tut_get_started.htm#access_ui)
-
-## Sample Examples
-
-| Example            | Description | Python | Java | Scala |
-|--------------------|:-----------:|:------:|:----:|:-----:|
-| CSV to Parquet  |This application shows how to use PySpark to convert CSV data store in OCI Object Store to Apache Parquet format which is then written back to Object Store.     |[CSV to Parquet](./python/csv_to_parquet)| [CSV to Parquet](./java/csv_to_parquet)| [CSV to Parquet](./scala/csv_to_parquet)|
-| Load to ADW     |This application shows how to read a file from OCI Object Store, perform some transformation and write the results to an Autonomous Data Warehouse instance.           |[Load to ADW](./python/loadadw)| [Load to ADW](./java/loadadw)|[Load to ADW](./scala/loadadw)|
-| Structured Streaming Kafka Word Count |This Structured Streaming application shows how to read Kafka stream and calculate word frequencies over one minute window interval|[Structured Kafka Word Count](./python/structured_streaming_kafka_word_count)| [Structured Kafka Word Count](./java/structured_streaming_kafka_word_count)||
-| Random Forest Regression |This application shows how to build a model and make prediction using Random Forest Regression.                                                             |[Random Forest Regression](./python/random_forest_regression)|
-| Oracle NoSQL Database cloud service |This application shows how to interface with Oracle NoSQL Database cloud service.                                                             |[Oracle NoSQL Database cloud service](./python/oracle_nosql)|
-
-For step-by-step instructions, see the README files included with each sample.
-
-## Running the Samples
-
-These samples show how to use the OCI Data Flow service and are meant to be deployed to and run from Oracle Cloud. You can optionally test these applications locally before you deploy them.  When they are ready, you can deploy them to Data Flow without any need to reconfigure them, make code changes, or apply deployment profiles.To test these applications locally, Apache Spark needs to be installed. Refer to section on how to set the Prerequisites before you deploy the application locally [Setup locally](https://docs.oracle.com/en-us/iaas/data-flow/data-flow-tutorial/develop-apps-locally/front.htm).
-
-### MLFlow Tracking Server
-
-Set up MLFlow Tracking Server: Refer to this section [dataflow-mlflow-integration](https://github.com/nilayp2107/oci-dataflow-showcase/dataflow-mlflow-integration)
-
-## Install Spark
-
-To install Spark, visit [spark.apache.org](https://spark.apache.org/docs/latest/api/python/getting_started/index.html)
-and pick the installation path that best suits your environment.
-
-## Documentation
-
-You can find the online documentation for Oracle Cloud Infrastructure Data Flow at [docs.oracle.com](https://docs.oracle.com/en-us/iaas/data-flow/using/dfs_getting_started.htm).
-
-## Get Support
-
-* Open a [GitHub issue](https://github.com/oracle/oci-dataflow-showcase/issues) for bug reports, questions, or requests for enhancements.
-* Post your question on the [OCI Data flow Community](https://community.oracle.com/community/groundbreakers/database/nosql_database).
-
-## Security
-
-Please consult the [security guide](./SECURITY.md) for our responsible security
-vulnerability disclosure process.
-
-## Contributing
-
-This project welcomes contributions from the community. Before submitting a pull
-request, please [review our contribution guide](./CONTRIBUTING.md).
-
-## License
-
-See [LICENSE](./LICENSE.txt)
-
-
+## 🛠️ Why I Love This Approach
+The beauty of Data Flow is that everything is completely driven by REST APIs. You can easily integrate these jobs into your existing web apps or automated workflows, making Big Data processing feel just like calling a standard web endpoint!
