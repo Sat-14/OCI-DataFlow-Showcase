@@ -60,7 +60,7 @@ These samples show how to use the OCI Data Flow service and are meant to be depl
 
 ### MLFlow Tracking Server
 
-Set up MLFlow Tracking Server: Refer to this section [dataflow-mlflow-integration](https://github.com/nilayp2107/oracle-dataflow-samples/dataflow-mlflow-integration)
+Set up MLFlow Tracking Server: Refer to this section [dataflow-mlflow-integration](https://github.com/nilayp2107/oci-dataflow-showcase/dataflow-mlflow-integration)
 
 ## Install Spark
 
@@ -73,7 +73,7 @@ You can find the online documentation for Oracle Cloud Infrastructure Data Flow 
 
 ## Get Support
 
-* Open a [GitHub issue](https://github.com/oracle/oracle-dataflow-samples/issues) for bug reports, questions, or requests for enhancements.
+* Open a [GitHub issue](https://github.com/oracle/oci-dataflow-showcase/issues) for bug reports, questions, or requests for enhancements.
 * Post your question on the [OCI Data flow Community](https://community.oracle.com/community/groundbreakers/database/nosql_database).
 
 ## Security

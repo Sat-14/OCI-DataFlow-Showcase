@@ -39,32 +39,32 @@ SQL
 
 ### Here are the Sample code to start using Delta Lake on Data Flow
 
-1. Delta Lake Java/Scala sample operations [Main](https://github.com/oracle-samples/oracle-dataflow-samples/blob/main/deltalake/scala/src/main/scala/com/oracle/delta/Main.scala)
+1. Delta Lake Java/Scala sample operations [Main](https://github.com/oracle-samples/oci-dataflow-showcase/blob/main/deltalake/scala/src/main/scala/com/oracle/delta/Main.scala)
 
 ```
 Main class : com.oracle.delta.Main
 Arguments: oci://<location>/samplecsv.csv oci://<location>/delta/spark-DeltaTable oci://<location>/delta/spark-ParquetToDeltaTable
 ```
 
-2. Delta Lake Python sample operations [delta_lake_sample](https://github.com/oracle-samples/oracle-dataflow-samples/blob/main/deltalake/python/delta_lake_sample.py)
+2. Delta Lake Python sample operations [delta_lake_sample](https://github.com/oracle-samples/oci-dataflow-showcase/blob/main/deltalake/python/delta_lake_sample.py)
 
 ```
 Main class : delta_lake_sample.py
 Arguments: oci://<location>/samplecsv.csv oci://<location>/delta/spark-DeltaTable oci://<location>/delta/spark-ParquetToDeltaTable
 ```
-3. Delta Lake Streaming sample operations [DeltaStreamRun](https://github.com/oracle-samples/oracle-dataflow-samples/blob/main/deltalake/scala/src/main/scala/com/oracle/delta/DeltaStreamRun.scala)
+3. Delta Lake Streaming sample operations [DeltaStreamRun](https://github.com/oracle-samples/oci-dataflow-showcase/blob/main/deltalake/scala/src/main/scala/com/oracle/delta/DeltaStreamRun.scala)
 
 ```
 Main class : com.oracle.delta.DeltaStreamRun
 Arguments: oci://<delta-table-location> oci://<delta-table-location>/another-spark-DeltaTable oci://<location-to-checkoint-folder>/
 ```
-4. Delta Lake sample batch write operation simulation [LongRunDelta](https://github.com/oracle-samples/oracle-dataflow-samples/blob/main/deltalake/scala/src/main/scala/com/oracle/delta/LongRunDelta.scala)
+4. Delta Lake sample batch write operation simulation [LongRunDelta](https://github.com/oracle-samples/oci-dataflow-showcase/blob/main/deltalake/scala/src/main/scala/com/oracle/delta/LongRunDelta.scala)
 
 ```
 Main class : com.oracle.delta.LongRunDelta
 Arguments: oci://<location>/samplecsv.csv oci://<location>/delta/spark-DeltaTable oci://<location>/delta/spark-ParquetToDeltaTable <sleepTimeInSec> <totalRuns>
 ```
-4. CSV sample data generation [GenerateCSVData](https://github.com/oracle-samples/oracle-dataflow-samples/blob/main/deltalake/scala/src/main/scala/com/oracle/delta/GenerateCSVData.scala)
+4. CSV sample data generation [GenerateCSVData](https://github.com/oracle-samples/oci-dataflow-showcase/blob/main/deltalake/scala/src/main/scala/com/oracle/delta/GenerateCSVData.scala)
 
 ```
 Main class : com.oracle.delta.GenerateCSVData
@@ -72,7 +72,7 @@ Arguments: oci://<location>/samplecsv.csv oci://<location>/delta/spark-DeltaTabl
 ```
 `Note: Build jar artifact from "mvn clean install`
 
-5. OCI Dataflow logging [PrintLog](https://github.com/oracle-samples/oracle-dataflow-samples/blob/main/deltalake/scala/src/main/scala/com/oracle/delta/PrintLog.scala)
+5. OCI Dataflow logging [PrintLog](https://github.com/oracle-samples/oci-dataflow-showcase/blob/main/deltalake/scala/src/main/scala/com/oracle/delta/PrintLog.scala)
 ```
 Main class : com.oracle.delta.SimpleSparkApp
 Arguments: oci://<location>/samplecsv.csv oci://<location>/delta/spark-DeltaTable

@@ -60,14 +60,14 @@ SQL
 
 ### Here are the Sample code to start using iceberg on Data Flow
 
-1. Iceberg Java/Scala sample operations [Main](https://github.com/oracle-samples/oracle-dataflow-samples/blob/main/iceberg/scala/src/main/scala/com/oracle/iceberg/Main.scala)
+1. Iceberg Java/Scala sample operations [Main](https://github.com/oracle-samples/oci-dataflow-showcase/blob/main/iceberg/scala/src/main/scala/com/oracle/iceberg/Main.scala)
 
 ```
 Main class : com.oracle.iceberg.Main
 Arguments: oci://<location>/samplecsv.csv oci://<location>/iceberg/spark-IcebergTable 
 ```
 
-2. Iceberg Python sample operations [Iceberg_sample](https://github.com/oracle-samples/oracle-dataflow-samples/blob/main/iceberg/python/iceberg_sample.py)
+2. Iceberg Python sample operations [Iceberg_sample](https://github.com/oracle-samples/oci-dataflow-showcase/blob/main/iceberg/python/iceberg_sample.py)
 
 ```
 Main class : iceberg_sample.py
